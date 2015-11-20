@@ -2,7 +2,6 @@ package com.aniu.mvpexample.app.buy_flower;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -29,7 +28,6 @@ public class BuyFlowerActivity extends Activity implements IBuyFlowerView, View.
         buy_progress = (ProgressBar) findViewById(R.id.buy_progress);
         buy_tv = (TextView)findViewById(R.id.buy_tv);
         buyFlowerPresenter = new IBuyFlowerPresenterImpl(this);
-        buy_tv.setText(buyFlowerPresenter.getFlowerNum()+"");
     }
 
     @Override
@@ -50,12 +48,12 @@ public class BuyFlowerActivity extends Activity implements IBuyFlowerView, View.
 
     @Override
     public void buyError() {
+        buy_tv.setText("购买失败");
 
     }
 
     @Override
     public void buySuccess() {
-        buy_et_num.setHint(buyFlowerPresenter.getFlowerNum()+"");
         buy_tv.setText(buyFlowerPresenter.getFlowerNum() + "");
 
     }
@@ -63,8 +61,8 @@ public class BuyFlowerActivity extends Activity implements IBuyFlowerView, View.
     @Override
     public void onClick(View v) {
         String num = buy_et_num.getText().toString();
-        int numInt =Integer.valueOf(num);
-        Log.d("BUY NUM", numInt+"");
+        int numInt = Integer.valueOf(num);
         buyFlowerPresenter.buyFlower(numInt);
+
     }
 }

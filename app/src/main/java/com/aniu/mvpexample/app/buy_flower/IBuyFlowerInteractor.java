@@ -5,7 +5,8 @@ package com.aniu.mvpexample.app.buy_flower;
  */
 public interface IBuyFlowerInteractor {
 
-    public void buyFlower(int num);
+    public void buyFlower(int num,OnBuyFinishedListener listener);
 
     public int getFlowerNum();
+
 }

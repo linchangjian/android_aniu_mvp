@@ -13,15 +13,33 @@ public class IBuyFlowerPresenterImpl implements IBuyFlowerPresenter {
         buyFlowerInteractor = new IBuyFlowerInteractorImpl();
     }
 
-
     @Override
     public void buyFlower(int num) {
-        buyFlowerInteractor.buyFlower(num);
-        buyFlowerView.buySuccess();
-    }
+        //买的时候显示进度
+        buyFlowerView.showProgress();
 
+        //...此处递交给model层处理数据
+        buyFlowerInteractor.buyFlower(num, new OnBuyFinishedListener() {
+            @Override
+            public void onBuySuccess() {
+                buyFlowerView.buySuccess();
+                buyFlowerView.hideProgress();
+
+            }
+
+            @Override
+            public void onBuyError() {
+                buyFlowerView.buyError();
+                buyFlowerView.hideProgress();
+            }
+        });
+
+    }
     @Override
     public int getFlowerNum() {
+        //..此处递交给model层处理数据，然后返回数量
         return buyFlowerInteractor.getFlowerNum();
     }
+
+
 }
